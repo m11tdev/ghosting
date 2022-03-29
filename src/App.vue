@@ -12,11 +12,14 @@
 	</div>
 
 	<div class="play">
-		<button @click="togglePlay">{{play ? 'Pause' : 'Play'}}</button>
+		<button @click="togglePlay">{{buttonText}}</button>
 	</div>
 
 	<div class="range">
-		<input v-model="interval" type="range" name="interval" id="interval" min="3" max="10" />
+		<label>
+			Interval: {{interval}}s
+			<input v-model="interval" type="range" name="interval" id="interval" min="1" max="10" />
+		</label>
 	</div>
 </template>
 
@@ -34,10 +37,13 @@ export default {
 			count: 0,
 			random: -1,
 			play: false,
+			buttonText: 'Go',
 			interval: 3,
 			timerInterval: '',
 			ghostInterval: '',
-			showArrows: false
+			showArrows: false,
+			flickerTimeout: '',
+			countdownInterval: ''
 		}
 	},
 	computed: {
@@ -73,19 +79,15 @@ export default {
 
 			clearInterval(this.ghostInterval)
 
-			this.showArrows = true
+			this.flickerArrows()
 
 			this.random = Math.random() * 6
 
 			this.ghostInterval = setInterval(() => {
 
-				this.showArrows = true
-
 				this.random = Math.random() * 6
 
-				setTimeout(() => {
-					this.showArrows = false
-				}, (this.interval * 1000) - 500);
+				this.flickerArrows()
 
 			}, this.interval * 1000)
 
@@ -94,37 +96,91 @@ export default {
 		togglePlay () {
 			this.play = !this.play
 
+			// Clear previous intervals and timeout
+			clearInterval(this.countdownInterval)
 			clearInterval(this.timerInterval)
+			clearInterval(this.ghostInterval)
+			clearTimeout(this.flickerTimeout)
+
 			if(this.play) {
-				this.timerInterval = setInterval(() => {
-					this.count++
+
+				// Countdown
+				let countdown = 5
+				this.buttonText = countdown
+
+				this.countdownInterval = setInterval(() => {
+
+					if(countdown > 1) {
+						countdown--
+						this.buttonText = countdown
+					}
+
+					else {
+
+						// Clear this interval
+						clearInterval(this.countdownInterval)
+
+						this.buttonText = 'Stop'
+
+						// Start timer
+						this.timerInterval = setInterval(() => {
+							this.count++
+						}, 1000);
+
+						// Start ghosting
+						this.ghost()
+					}
+
 				}, 1000);
+
+
 			}
 
-			clearInterval(this.ghostInterval)
+			else {
+				this.buttonText = 'Go'
+			}
+
+		},
+
+		flickerArrows () {
+
+			this.showArrows = true
+
+			this.flickerTimeout = setTimeout(() => {
+				this.showArrows = false
+			},
+				(this.interval * 1000) - 500
+			)
+
 		}
 
 	},
 	watch: {
-		play () {
-			if(this.play) this.ghost()
+
+		interval () {
+			// If interval changes while playing reset things
+			if(this.play) this.togglePlay()
 		}
+
 	}
 }
 
 </script>
 
 <style lang="scss">
+@use "sass:math";
 html,
 body {
 	font-family: sans-serif;
 	padding: 0;
 	margin: 0;
+	background: rgb(61, 61, 61);
 
 	> * {
 		padding: 0;
 		margin: 0;
 		box-sizing: border-box;
+		color: white;
 	}
 }
 
@@ -138,27 +194,30 @@ body {
 	display: grid;
 	align-items: center;
 	justify-items: center;
-	font-size: 3rem;
+	font-size: 4rem;
 }
 
+$size: 50px;
+$thickness: 12px;
+
 .arrows {
-	height: calc(100vh - 140px);
+	height: calc(100vh - 160px);
 	position: relative;
 
 	> div {
 		position: absolute;
-		height: 30px;
-		width: 30px;
+		height: $size;
+		width: $size;
 
 		&::before,
 		&::after {
 			content: "";
 			display: block;
 			position: absolute;
-			background: black;
-			height: 10px;
-			width: 30px;
-			border-radius: 5px;
+			background: white;
+			height: $thickness;
+			width: $size;
+			border-radius: math.div($thickness, 2);
 		}
 
 		&.bl::before,
@@ -167,8 +226,8 @@ body {
 		}
 
 		&::after {
-			width: 10px;
-			height: 30px;
+			width: $thickness;
+			height: $size;
 		}
 
 		&.fr::after,
@@ -198,7 +257,7 @@ body {
 
 	.ml,
 	.mr {
-		top: 50%;
+		top: calc(50vh - 125px);
 	}
 
 	.ml {
@@ -216,12 +275,14 @@ body {
 	}
 }
 
+$play-size: 120px;
+
 .play {
 	position: fixed;
-	height: 80px;
-	width: 80px;
-	top: calc(50vh - 40px);
-	left: calc(50% - 40px);
+	height: $play-size;
+	width: $play-size;
+	top: calc(50vh - #{math.div($play-size, 2)});
+	left: calc(50% - #{math.div($play-size, 2)});
 
 	button {
 		border: 2px solid;
@@ -229,13 +290,14 @@ body {
 		display: block;
 		height: 100%;
 		width: 100%;
-		font-size: 1.5rem;
+		font-size: 2rem;
 	}
 }
 
 .range {
-	height: 40px;
+	height: 60px;
 	padding: 0 20px;
+	text-align: center;
 
 	input {
 		width: 100%;
