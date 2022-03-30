@@ -1,4 +1,4 @@
-<template>{{hours}}:{{minutes}}:{{seconds}}</template>
+<template>{{minutes}}:{{seconds}}</template>
 
 <script>
 export default {

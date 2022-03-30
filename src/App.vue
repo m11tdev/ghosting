@@ -24,6 +24,8 @@
 </template>
 
 <script>
+
+import NoSleep from 'nosleep.js'
 import StopWatch from './components/StopWatch.vue'
 
 export default {
@@ -162,145 +164,24 @@ export default {
 			if(this.play) this.togglePlay()
 		}
 
+	},
+	mounted () {
+
+		// Wake lock
+		const noSleep = new NoSleep()
+
+		const enableNoSleep = () => {
+			noSleep.enable()
+			document.removeEventListener('touchstart', enableNoSleep, false)
+		}
+
+		document.addEventListener('touchstart', enableNoSleep, false)
+
 	}
 }
 
 </script>
 
 <style lang="scss">
-@use "sass:math";
-html,
-body {
-	font-family: sans-serif;
-	padding: 0;
-	margin: 0;
-	background: rgb(61, 61, 61);
-
-	> * {
-		padding: 0;
-		margin: 0;
-		box-sizing: border-box;
-		color: white;
-	}
-}
-
-#app {
-	min-width: 320px;
-}
-
-.stopwatch {
-	text-align: center;
-	height: 100px;
-	display: grid;
-	align-items: center;
-	justify-items: center;
-	font-size: 4rem;
-}
-
-$size: 50px;
-$thickness: 12px;
-
-.arrows {
-	height: calc(100vh - 160px);
-	position: relative;
-
-	> div {
-		position: absolute;
-		height: $size;
-		width: $size;
-
-		&::before,
-		&::after {
-			content: "";
-			display: block;
-			position: absolute;
-			background: white;
-			height: $thickness;
-			width: $size;
-			border-radius: math.div($thickness, 2);
-		}
-
-		&.bl::before,
-		&.br::before {
-			bottom: 0;
-		}
-
-		&::after {
-			width: $thickness;
-			height: $size;
-		}
-
-		&.fr::after,
-		&.mr::after,
-		&.br::after {
-			right: 0;
-		}
-	}
-
-	.fl,
-	.ml,
-	.bl {
-		left: 20px;
-	}
-
-	.fr,
-	.mr,
-	.br {
-		right: 20px;
-		text-align: right;
-	}
-
-	.fl,
-	.fr {
-		top: 20px;
-	}
-
-	.ml,
-	.mr {
-		top: calc(50vh - 125px);
-	}
-
-	.ml {
-		top: calc(55% - 22px);
-		transform: rotate(-45deg);
-	}
-
-	.mr {
-		transform: rotate(45deg);
-	}
-
-	.bl,
-	.br {
-		bottom: 20px;
-	}
-}
-
-$play-size: 120px;
-
-.play {
-	position: fixed;
-	height: $play-size;
-	width: $play-size;
-	top: calc(50vh - #{math.div($play-size, 2)});
-	left: calc(50% - #{math.div($play-size, 2)});
-
-	button {
-		border: 2px solid;
-		border-radius: 100%;
-		display: block;
-		height: 100%;
-		width: 100%;
-		font-size: 2rem;
-	}
-}
-
-.range {
-	height: 60px;
-	padding: 0 20px;
-	text-align: center;
-
-	input {
-		width: 100%;
-	}
-}
+@import "sass/ghosting";
 </style>

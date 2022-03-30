@@ -1,0 +1,83 @@
+.arrows {
+	height: calc(100vh - #{$stopwatch-height + $range-height});
+	position: relative;
+
+	> div {
+		position: absolute;
+		height: $size;
+		width: $size;
+
+		&::before,
+		&::after {
+			content: "";
+			display: block;
+			position: absolute;
+			background: white;
+			height: $thickness;
+			width: $size;
+			border-radius: math.div($thickness, 2);
+		}
+
+		&.bl::before,
+		&.br::before {
+			bottom: 0;
+		}
+
+		&::after {
+			width: $thickness;
+			height: $size;
+		}
+
+		&.fr::after,
+		&.mr::after,
+		&.br::after {
+			right: 0;
+		}
+	}
+
+	.fl,
+	.ml,
+	.bl {
+		left: 20px;
+	}
+
+	.fr,
+	.mr,
+	.br {
+		right: 20px;
+		text-align: right;
+	}
+
+	.ml {
+		left: 16px;
+	}
+
+	.mr {
+		right: 16px;
+	}
+
+	.fl,
+	.fr {
+		top: 20px;
+	}
+
+	.ml,
+	.mr {
+		top: calc(50vh - #{$stopwatch-height});
+	}
+
+	.ml {
+		transform: rotate(-45deg);
+		transform-origin: top left;
+	}
+
+	.mr {
+		transform: rotate(45deg);
+		transform-origin: top right;
+	}
+
+	.bl,
+	.br {
+		bottom: 20px;
+	}
+}
