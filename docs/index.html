@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/assets/favicon.65f3e22a.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.d288a814.png">
+    <link rel="icon" href="/ghosting/assets/favicon.65f3e22a.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/ghosting/assets/apple-touch-icon.d288a814.png">
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABU1BMVEXn7+/o8PDq8vLr8/Pp8fHS2dmzubmgpqaiqKi4vr7X3t7FzMxrb28nKCgLDAwEBAQEBQUODw8vMDB4fX3O1dXp8vKdo6MjJSUAAAABAQGssrKcoaETFBQcHR3ByMgiIyMwMTHm7u5iZWV4fHzHzs4dHh6boaEODQQkIQoICAIPDgQHBgHq8/N7f3+kmC7o2EKBeCUUEgaonC/o10F9dCMHBwVvc3MoJgvn3EP/9kvIvjo8ORHq3kPFuzkQDwecoqJucnIKCQOMgijTxDxsZB8NDASQhiloYR0DAwOdoqIGBgISEQUDAwEHBgIDAgFvcnIzNTVGSUkBAgIxMjIgISEQERFSVVUCAgKkqalqbm7O1tbb4uJUV1dAQkLP1taxt7cfICAICAiChoa1u7tgY2PCyMjR2NhFR0c2ODihp6fi6urV3d3R2dno8fHK0dHf5+f////lFiaTAAAAAWJLR0Rw2ABsdAAAAAlwSFlzAAAhOAAAITgBRZYxYAAAAAd0SU1FB+YDHgsENlwstz8AAAD3SURBVDjLY2CgM2BkYmZmYsQpzcLAysbOwcnFwoJDnpuHl49fQFBIWEQUqwIxcQkIkBSSwmIGi7SMBBzISmGYwSInL4EEFETQzVBUkkABymgKWFRUURUocKH6llmNHyqjrqEpoaWhLcjJhKJARxcmr6dvYGhkbGLKwYyigMkMqsDcwtLK2sbS1s4eTYEDVIGjk7OLq5uzu4cnDgUSXt4+Er7efrgVQMFIVeAvERAIjK+g4BCgbGiYargYqgKWiMio6BgJidi4+ASJxCTF5JRU9BTDyMiSlp7BzcSSGeKQxYg9XbNk5+QC01ZePs6cwQiWYcGdc2gDABy7OA9pRMU6AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTAzLTMwVDExOjA0OjU0KzAwOjAwJ93AoQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wMy0zMFQxMTowNDo1NCswMDowMFaAeB0AAABXelRYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAAeJzj8gwIcVYoKMpPy8xJ5VIAAyMLLmMLEyMTS5MUAxMgRIA0w2QDI7NUIMvY1MjEzMQcxAfLgEigSi4A6hcRdPJCNZUAAAAASUVORK5CYII=">
     <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAwFBMVEXn7+/o8PDq8vLp8fHW3d2Ok5NeYWFgY2OUmZnZ4ODK0dFBREQCAgIAAAAEBARJTEzP1tbi6upZXFxjZmfl7e3Ax8cWFhYBAQAXFQYKCQMUEwQmJiHr8/OmrKwGBgYYFge+sTZyaiC9rzVjXia0u72iqKgEBQUJCQNbVRoyLg5aVBkzMRi1u7wNDQ22vb0FBQWzublmaWlcYGAFBgZRVFRCRUUICQlpbW1iZWXCycnk7Ozm7u7Z4eGQlZXh6en////f66VFAAAAAWJLR0Q/PmMwdQAAAAlwSFlzAAAhOAAAITgBRZYxYAAAAAd0SU1FB+YDHgsENlwstz8AAAB6SURBVBjTY2DAChiZGIEIwWdmYWVj5+BkhvO5uHl4efn4BWAigkK8YCAsAlUgKsbLKy4hKSXNBVEiIyvHyyuvoKikrMIEEVBV4+VV19DU0tZBEgABXT3iBfRRBZgMDI2MTUzNzC0soS6zsraxZeHisLMSQfUcdn8zAACoTwzAHO5SPgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMy0zMFQxMTowNDo1NCswMDowMCfdwKEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDMtMzBUMTE6MDQ6NTQrMDA6MDBWgHgdAAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMjE0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,9 +11,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Ghosting">
     <title>Ghosting</title>
-    <script type="module" crossorigin src="/assets/index.dae1e971.js"></script>
-    <link rel="modulepreload" href="/assets/vendor.bf09c502.js">
-    <link rel="stylesheet" href="/assets/index.788768ba.css">
+    <script type="module" crossorigin src="/ghosting/assets/index.dae1e971.js"></script>
+    <link rel="modulepreload" href="/ghosting/assets/vendor.bf09c502.js">
+    <link rel="stylesheet" href="/ghosting/assets/index.788768ba.css">
   </head>
   <body>
     <div id="app"></div>
