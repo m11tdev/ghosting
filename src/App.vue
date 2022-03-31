@@ -110,6 +110,11 @@ export default {
 				let countdown = 5
 				this.buttonText = countdown
 
+				// Flicker the arrow
+				setTimeout(() => {
+					this.showArrows = false
+				}, 4500)
+
 				this.countdownInterval = setInterval(() => {
 
 					if(countdown > 1) {
