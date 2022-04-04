@@ -21,7 +21,7 @@
 			<input v-model="beeps" type="checkbox" name="beeps" :checked="beeps">
 			<div class="toggle"></div>
 		</label>
-		<audio class="beep" src="/beep.mp3"></audio>
+		<audio class="beep" :src="beepUrl"></audio>
 	</div>
 
 	<div class="range">
@@ -55,7 +55,8 @@ export default {
 			showArrows: false,
 			flickerTimeout: '',
 			countdownInterval: '',
-			beeps: true
+			beeps: true,
+			beepUrl: `${import.meta.env.BASE_URL}beep.mp3`
 		}
 	},
 	computed: {
