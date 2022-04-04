@@ -21,7 +21,7 @@
 			<input v-model="beeps" type="checkbox" name="beeps" :checked="beeps">
 			<div class="toggle"></div>
 		</label>
-		<audio class="beep" src="src/assets/beep.mp3"></audio>
+		<audio class="beep" src="/beep.mp3"></audio>
 	</div>
 
 	<div class="range">
