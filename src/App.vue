@@ -118,7 +118,9 @@ export default {
 			clearTimeout(this.flickerTimeout)
 
 			if(this.play) {
-
+				
+				this.playBeep(true)
+				
 				// Countdown
 				let countdown = 5
 				this.buttonText = countdown
@@ -174,10 +176,11 @@ export default {
 
 		},
 
-		playBeep() {
+		playBeep(mute) {
 			if(!this.beeps) return
 			const audio = document.querySelector(`audio.beep`)
 			audio.currentTime = 0
+			audio.volume = mute ? 0 : 1
 			audio.play()
 		}
 
