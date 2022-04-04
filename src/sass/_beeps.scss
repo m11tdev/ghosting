@@ -1,0 +1,59 @@
+.beeps {
+
+    position: fixed;
+    top: calc(50vh + 100px);
+    width: 100px;
+    left: calc(50% - 50px);
+    text-align: center;
+
+    input {
+        display: none;
+    }
+
+    .toggle {
+
+        display: inline-block;
+        position: relative;
+        width: 35px;
+        margin-left: 3px;
+
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            border: 1px solid white;
+            height: 15px;
+            width: 15px;
+            border-radius: 15px;
+            background: $bg;
+            bottom: -3px;
+            left: 0;
+            transition: background .3s, left .3s;
+        }
+
+        &::before {
+            width: 30px;
+            background: gray
+        }
+
+    }
+
+    input[type='checkbox']:checked + .toggle {
+
+        &::before {
+            background: green;
+        }
+
+        &::after {
+            background: white;
+            left: 15px
+        }
+
+    }
+
+    audio {
+        display: none;
+    }
+
+}

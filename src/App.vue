@@ -15,6 +15,15 @@
 		<button @click="togglePlay">{{buttonText}}</button>
 	</div>
 
+	<div class="beeps">
+		<label>
+			Beeps
+			<input v-model="beeps" type="checkbox" name="beeps" :checked="beeps">
+			<div class="toggle"></div>
+		</label>
+		<audio class="beep" src="src/assets/beep.mp3"></audio>
+	</div>
+
 	<div class="range">
 		<label>
 			Interval: {{interval}}s
@@ -45,7 +54,8 @@ export default {
 			ghostInterval: '',
 			showArrows: false,
 			flickerTimeout: '',
-			countdownInterval: ''
+			countdownInterval: '',
+			beeps: true
 		}
 	},
 	computed: {
@@ -82,6 +92,7 @@ export default {
 			clearInterval(this.ghostInterval)
 
 			this.flickerArrows()
+			this.playBeep()
 
 			this.random = Math.random() * 6
 
@@ -90,6 +101,7 @@ export default {
 				this.random = Math.random() * 6
 
 				this.flickerArrows()
+				this.playBeep()
 
 			}, this.interval * 1000)
 
@@ -159,6 +171,13 @@ export default {
 				(this.interval * 1000) - 500
 			)
 
+		},
+
+		playBeep() {
+			if(!this.beeps) return
+			const audio = document.querySelector(`audio.beep`)
+			audio.currentTime = 0
+			audio.play()
 		}
 
 	},
