@@ -21,6 +21,9 @@
 			<input v-model="beeps" type="checkbox" name="beeps" :checked="beeps">
 			<div class="toggle"></div>
 		</label>
+		<label v-if="beeps" class="delay-arrow-label">
+			Delay arrows for <div class="delay-arrow-input-wrapper"><input v-model="delayArrow" type="number" name="delayArrow" class="delay-arrow" step="50" max="1000"><span class="ms">ms</span></div> after beeps
+		</label>
 		<audio class="beep" :src="beepUrl"></audio>
 	</div>
 
@@ -56,7 +59,8 @@ export default {
 			flickerTimeout: '',
 			countdownInterval: '',
 			beeps: true,
-			beepUrl: `${import.meta.env.BASE_URL}beep.mp3`
+			beepUrl: `${import.meta.env.BASE_URL}beep.mp3`,
+			delayArrow: 0
 		}
 	},
 	computed: {
@@ -166,7 +170,17 @@ export default {
 
 		flickerArrows () {
 
-			this.showArrows = true
+			if(this.beeps) {
+
+				this.flickerTimeout = setTimeout(() => {
+					this.showArrows = true
+				}, this.delayArrow)
+
+			}
+
+			else {
+				this.showArrows = true
+			}
 
 			this.flickerTimeout = setTimeout(() => {
 				this.showArrows = false
@@ -190,6 +204,14 @@ export default {
 		interval () {
 			// If interval changes while playing reset things
 			if(this.play) this.togglePlay()
+
+			if(this.delayArrow > this.interval * 1000) this.delayArrow = this.interval * 1000
+		},
+
+		delayArrow () {
+
+			if(this.delayArrow > 1000) this.delayArrow = 1000
+
 		}
 
 	},

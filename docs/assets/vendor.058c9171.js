@@ -4,4 +4,4 @@ function bt(A,e){const t=Object.create(null),n=A.split(",");for(let s=0;s<n.leng
         See https://github.com/richtr/NoSleep.js/issues/15 for more details.
       `),this.noSleepTimer=window.setInterval(()=>{document.hidden||(window.location.href=window.location.href.split("#")[0],window.setTimeout(window.stop,0))},15e3),this.enabled=!0,Promise.resolve()):this.noSleepVideo.play().then(t=>(this.enabled=!0,t)).catch(t=>{throw this.enabled=!1,t})}disable(){st()?(this._wakeLock&&this._wakeLock.release(),this._wakeLock=null):nt()?this.noSleepTimer&&(console.warn(`
           NoSleep now disabled for older iOS devices.
-        `),window.clearInterval(this.noSleepTimer),this.noSleepTimer=null):this.noSleepVideo.pause(),this.enabled=!1}}var Bo=fo;export{mA as F,Qs as a,xA as b,go as c,po as d,bi as e,mo as f,Eo as g,pi as o,ho as r,Bo as s,uo as t,Co as v,ao as w};
+        `),window.clearInterval(this.noSleepTimer),this.noSleepTimer=null):this.noSleepVideo.pause(),this.enabled=!1}}var Bo=fo;export{mA as F,Qs as a,xA as b,go as c,po as d,mo as e,bi as f,Eo as g,pi as o,ho as r,Bo as s,uo as t,Co as v,ao as w};

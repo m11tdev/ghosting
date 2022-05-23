@@ -2,11 +2,11 @@
 
     position: fixed;
     top: calc(50vh + 100px);
-    width: 100px;
-    left: calc(50% - 50px);
+    left: 0;
+    width: 100%;
     text-align: center;
 
-    input {
+    input[type="checkbox"] {
         display: none;
     }
 
@@ -54,6 +54,39 @@
 
     audio {
         display: none;
+    }
+
+    label.delay-arrow-label {
+        display: block;
+        margin-top: 30px;
+        color: $gray;
+        font-size: 0.85rem;
+
+        div.delay-arrow-input-wrapper {
+            display: inline-flex;
+            border: 1px solid darken($gray, 30);
+            border-radius: 3px;
+            overflow: hidden;
+            align-items: baseline;
+            margin: 0 2px;
+        }
+
+        span.ms {
+            background: lighten($gray, 30);
+            color: $bg;
+            padding: 0 2px;
+        }
+    }
+    
+    input.delay-arrow {
+        max-width: 60px;
+        height: 1rem;
+        line-height: 1rem;
+        border: 0;
+        padding: 1px 2px 1px 5px;
+        background: transparent;
+        color: lighten($gray, 30);
+        display: inline-block;
     }
 
 }
