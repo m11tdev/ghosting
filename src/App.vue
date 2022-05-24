@@ -13,18 +13,10 @@
 
 	<div class="play">
 		<button @click="togglePlay">{{buttonText}}</button>
-	</div>
-
-	<div class="beeps">
-		<label>
-			Beeps
-			<input v-model="beeps" type="checkbox" name="beeps" :checked="beeps">
-			<div class="toggle"></div>
-		</label>
-		<label v-if="beeps" class="delay-arrow-label">
-			Delay arrows for <div class="delay-arrow-input-wrapper"><input v-model="delayArrow" type="number" name="delayArrow" class="delay-arrow" step="50" max="1000"><span class="ms">ms</span></div> after beeps
-		</label>
-		<audio class="beep" :src="beepUrl"></audio>
+		<div
+			ref="dot"
+			:class="{ active: dotActive }"
+		></div>
 	</div>
 
 	<div class="range">
@@ -58,9 +50,7 @@ export default {
 			showArrows: false,
 			flickerTimeout: '',
 			countdownInterval: '',
-			beeps: true,
-			beepUrl: `${import.meta.env.BASE_URL}beep.mp3`,
-			delayArrow: 0
+			dotActive: false
 		}
 	},
 	computed: {
@@ -94,10 +84,11 @@ export default {
 
 		ghost () {
 
+			this.dotActive = true
+
 			clearInterval(this.ghostInterval)
 
 			this.flickerArrows()
-			this.playBeep()
 
 			this.random = Math.random() * 6
 
@@ -106,7 +97,6 @@ export default {
 				this.random = Math.random() * 6
 
 				this.flickerArrows()
-				this.playBeep()
 
 			}, this.interval * 1000)
 
@@ -122,8 +112,6 @@ export default {
 			clearTimeout(this.flickerTimeout)
 
 			if(this.play) {
-				
-				this.playBeep(true)
 				
 				// Countdown
 				let countdown = 5
@@ -164,23 +152,14 @@ export default {
 
 			else {
 				this.buttonText = 'Go'
+				this.dotActive = false
 			}
 
 		},
 
 		flickerArrows () {
 
-			if(this.beeps) {
-
-				this.flickerTimeout = setTimeout(() => {
-					this.showArrows = true
-				}, this.delayArrow)
-
-			}
-
-			else {
-				this.showArrows = true
-			}
+			this.showArrows = true
 
 			this.flickerTimeout = setTimeout(() => {
 				this.showArrows = false
@@ -188,14 +167,6 @@ export default {
 				(this.interval * 1000) - 500
 			)
 
-		},
-
-		playBeep(mute) {
-			if(!this.beeps) return
-			const audio = document.querySelector(`audio.beep`)
-			audio.currentTime = 0
-			audio.volume = mute ? 0 : 1
-			audio.play()
 		}
 
 	},
@@ -205,13 +176,9 @@ export default {
 			// If interval changes while playing reset things
 			if(this.play) this.togglePlay()
 
-			if(this.delayArrow > this.interval * 1000) this.delayArrow = this.interval * 1000
-		},
-
-		delayArrow () {
-
-			if(this.delayArrow > 1000) this.delayArrow = 1000
-
+			// Update .dot animation-duration
+			document.getElementById("Mercury-orbit");
+    		this.$refs.dot.style['animation-duration'] = `${ this.interval }s`
 		}
 
 	},

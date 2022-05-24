@@ -5,14 +5,71 @@
 	top: calc(50vh - #{math.div($play-size, 2)});
 	left: calc(50% - #{math.div($play-size, 2)});
 
+	&::before,
+	&::after {
+		content: '';
+		display: block;
+		height: calc(100% + 60px);
+		width: 4px;
+		background: lighten($bg, 50);
+		position: absolute;
+		top: -30px;
+		left: calc(50% - 2px);
+		border-radius: 4px;
+	}
+
+	&::after {
+		transform: rotate(90deg);
+		z-index: 0;
+	}
+
 	button {
 		border: 2px solid;
 		border-radius: 100%;
 		display: block;
 		height: 100%;
 		width: 100%;
-		font-size: 3.5rem;
+		font-size: 4.5rem;
 		padding: 0;
 		color: rgb(61, 61, 61);
+		position: relative;
+		z-index: 2;
+	}
+
+	div {
+		position: absolute;
+		height: calc(100% + 40px);
+		width: calc(100% + 40px);
+		background: lighten($bg, 10);
+		border-radius: 100%;
+		top: -20px;
+		left: -20px;
+		z-index: 1;
+
+		&::after {
+			content: '';
+			display: block;
+			width: 20px;
+			height: 20px;
+			border-radius: 20px;
+			background: red;
+			position: absolute;
+			left: calc(50% - 10px);
+			top: 0;
+		}
+
+		&.active {
+			animation: border 3s linear infinite forwards;
+		}
+	}
+}
+
+@keyframes border {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
 	}
 }
