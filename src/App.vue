@@ -177,7 +177,6 @@ export default {
 			if(this.play) this.togglePlay()
 
 			// Update .dot animation-duration
-			document.getElementById("Mercury-orbit");
     		this.$refs.dot.style['animation-duration'] = `${ this.interval }s`
 		}
 
