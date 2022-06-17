@@ -1,4 +1,5 @@
 .arrows {
+	pointer-events: none;
 	height: calc(100vh - #{$stopwatch-height + $range-height});
 	position: relative;
 
@@ -12,10 +13,15 @@
 			content: "";
 			display: block;
 			position: absolute;
-			background: white;
+			background: $dark-bg;
 			height: $thickness;
 			width: $size;
 			border-radius: math.div($thickness, 2);
+		}
+
+		.dark &::before,
+		.dark &::after {
+			background: white;
 		}
 
 		&.bl::before,

@@ -1,7 +1,7 @@
-.progress-bar {
+.dark-mode {
 
     position: fixed;
-    top: calc(50vh + 100px);
+    top: calc(50vh + 130px);
     left: 0;
     width: 100%;
     text-align: center;
@@ -26,7 +26,7 @@
             height: 15px;
             width: 15px;
             border-radius: 15px;
-            background: $bg;
+            background: $dark-bg;
             bottom: -3px;
             left: 0;
             transition: background .3s, left .3s;
@@ -73,7 +73,7 @@
 
         span.ms {
             background: lighten($gray, 30);
-            color: $bg;
+            color: $dark-bg;
             padding: 0 2px;
         }
     }

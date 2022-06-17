@@ -1,29 +1,48 @@
 <template>
-	<div class="stopwatch">
-		<StopWatch :count="count" />
-	</div>
-	<div class="arrows">
-		<div v-if="fl && showArrows" class="fl"></div>
-		<div v-if="fr && showArrows" class="fr"></div>
-		<div v-if="ml && showArrows" class="ml"></div>
-		<div v-if="mr && showArrows" class="mr"></div>
-		<div v-if="bl && showArrows" class="bl"></div>
-		<div v-if="br && showArrows" class="br"></div>
-	</div>
+	<div
+		:class="[
+			'app-wrapper',
+			{
+				'dark': darkMode,
+				'light': !darkMode
+			}
+		]"
+	>
+		<div class="stopwatch">
+			<StopWatch :count="count" />
+			<button v-if="!play && count > 0" @click="resetCount">Reset</button>
+		</div>
+		<div class="arrows">
+			<div v-if="fl && showArrows" class="fl"></div>
+			<div v-if="fr && showArrows" class="fr"></div>
+			<div v-if="ml && showArrows" class="ml"></div>
+			<div v-if="mr && showArrows" class="mr"></div>
+			<div v-if="bl && showArrows" class="bl"></div>
+			<div v-if="br && showArrows" class="br"></div>
+		</div>
 
-	<div class="play">
-		<button @click="togglePlay">{{buttonText}}</button>
-		<div
-			ref="dot"
-			:class="{ active: dotActive }"
-		></div>
-	</div>
+		<div class="play">
+			<button @click="togglePlay">{{buttonText}}</button>
+			<div
+				ref="dot"
+				:class="{ active: dotActive }"
+			></div>
+		</div>
 
-	<div class="range">
-		<label>
-			Interval: {{interval}}s
-			<input v-model="interval" type="range" name="interval" id="interval" min="1" max="10" />
-		</label>
+		<div class="dark-mode">
+			<label>
+				Dark mode
+				<input v-model="darkMode" type="checkbox" name="darkMode" :checked="darkMode">
+				<div class="toggle"></div>
+			</label>
+		</div>
+
+		<div class="range">
+			<label>
+				Interval: {{interval}}s
+				<input v-model="interval" type="range" name="interval" id="interval" min="1" max="10" />
+			</label>
+		</div>
 	</div>
 </template>
 
@@ -45,6 +64,7 @@ export default {
 			play: false,
 			buttonText: 'Go',
 			interval: 3,
+			darkMode: null,
 			timerInterval: '',
 			ghostInterval: '',
 			showArrows: false,
@@ -78,6 +98,52 @@ export default {
 		br () {
 			return this.random > 5 && this.random <= 6
 		}
+
+	},
+	watch: {
+
+		interval () {
+			// If interval changes while playing reset things
+			if(this.play) this.togglePlay()
+
+			// Update .dot animation-duration
+    		this.$refs.dot.style['animation-duration'] = `${ this.interval }s`
+
+			// Store value in localStorage
+			localStorage.setItem('interval', this.interval)
+		},
+
+		darkMode() {
+			localStorage.setItem('darkMode', this.darkMode ? 'Y' : 'N')
+		}
+
+	},
+	mounted () {
+
+		// Wake lock
+		const noSleep = new NoSleep()
+
+		const enableNoSleep = () => {
+			noSleep.enable()
+			document.removeEventListener('touchstart', enableNoSleep, false)
+		}
+
+		document.addEventListener('touchstart', enableNoSleep, false)
+
+		// Get previous settings
+		const darkMode = localStorage.getItem('darkMode')
+		this.darkMode = true
+
+		if(darkMode === 'Y') {
+			this.darkMode = true
+		}
+
+		if(darkMode === 'N') {
+			this.darkMode = false
+		}
+
+		const interval = localStorage.getItem('interval')
+		if(interval) this.interval = interval
 
 	},
 	methods: {
@@ -167,31 +233,12 @@ export default {
 				(this.interval * 1000) - 500
 			)
 
+		},
+
+		resetCount() {
+			this.count = 0
+			this.showArrows = false
 		}
-
-	},
-	watch: {
-
-		interval () {
-			// If interval changes while playing reset things
-			if(this.play) this.togglePlay()
-
-			// Update .dot animation-duration
-    		this.$refs.dot.style['animation-duration'] = `${ this.interval }s`
-		}
-
-	},
-	mounted () {
-
-		// Wake lock
-		const noSleep = new NoSleep()
-
-		const enableNoSleep = () => {
-			noSleep.enable()
-			document.removeEventListener('touchstart', enableNoSleep, false)
-		}
-
-		document.addEventListener('touchstart', enableNoSleep, false)
 
 	}
 }

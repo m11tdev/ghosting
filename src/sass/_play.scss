@@ -11,7 +11,7 @@
 		display: block;
 		height: calc(100% + 60px);
 		width: 4px;
-		background: lighten($bg, 50);
+		background: lighten($dark-bg, 50);
 		position: absolute;
 		top: -30px;
 		left: calc(50% - 2px);
@@ -40,11 +40,14 @@
 		position: absolute;
 		height: calc(100% + 20px);
 		width: calc(100% + 20px);
-		background: $bg;
 		border-radius: 100%;
 		top: -10px;
 		left: -10px;
 		z-index: 1;
+		background: $light-bg;
+		.dark & {
+			background: $dark-bg;
+		}
 
 		&::after {
 			content: '';
@@ -52,10 +55,14 @@
 			width: 14px;
 			height: 40px;
 			border-radius: 20px;
-			background: red;
+			background: rgb(17, 222, 20);
 			position: absolute;
 			left: calc(50% - 7px);
 			top: -20px;
+		}
+
+		.dark &::after {
+			background: red;
 		}
 
 		&.active {
