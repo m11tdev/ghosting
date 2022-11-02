@@ -8,40 +8,42 @@
 			}
 		]"
 	>
-		<div class="stopwatch">
-			<StopWatch :count="count" />
-			<button v-if="!play && count > 0" @click="resetCount">Reset</button>
-		</div>
-		<div class="arrows">
-			<div v-if="fl && showArrows" class="fl"></div>
-			<div v-if="fr && showArrows" class="fr"></div>
-			<div v-if="ml && showArrows" class="ml"></div>
-			<div v-if="mr && showArrows" class="mr"></div>
-			<div v-if="bl && showArrows" class="bl"></div>
-			<div v-if="br && showArrows" class="br"></div>
-		</div>
+		<div class="app-container">
+			<div class="stopwatch">
+				<StopWatch :count="count" />
+				<button v-if="!play && count > 0" @click="resetCount">Reset</button>
+			</div>
+			<div class="arrows">
+				<div v-if="fl && showArrows" class="fl"></div>
+				<div v-if="fr && showArrows" class="fr"></div>
+				<div v-if="ml && showArrows" class="ml"></div>
+				<div v-if="mr && showArrows" class="mr"></div>
+				<div v-if="bl && showArrows" class="bl"></div>
+				<div v-if="br && showArrows" class="br"></div>
+			</div>
 
-		<div class="play">
-			<button @click="togglePlay">{{buttonText}}</button>
-			<div
-				ref="dot"
-				:class="{ active: dotActive }"
-			></div>
-		</div>
+			<div class="play">
+				<button @click="togglePlay">{{buttonText}}</button>
+				<div
+					ref="dot"
+					:class="{ active: dotActive }"
+				></div>
+			</div>
 
-		<div class="dark-mode">
-			<label>
-				Dark mode
-				<input v-model="darkMode" type="checkbox" name="darkMode" :checked="darkMode">
-				<div class="toggle"></div>
-			</label>
-		</div>
+			<div class="dark-mode">
+				<label>
+					Dark mode
+					<input v-model="darkMode" type="checkbox" name="darkMode" :checked="darkMode">
+					<div class="toggle"></div>
+				</label>
+			</div>
 
-		<div class="range">
-			<label>
-				Interval: {{interval}}s
-				<input v-model="interval" type="range" name="interval" id="interval" min="1" max="10" />
-			</label>
+			<div class="range">
+				<label>
+					Interval: {{interval}}s
+					<input v-model="interval" type="range" name="interval" id="interval" min="1" max="10" />
+				</label>
+			</div>
 		</div>
 	</div>
 </template>

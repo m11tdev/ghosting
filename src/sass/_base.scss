@@ -11,12 +11,6 @@ body {
 	}
 }
 
-#app {
-	min-width: 320px;
-	max-width: 500px;
-    margin: 0 auto;
-}
-
 .app-wrapper {
 	
 	background: $light-bg;
@@ -25,6 +19,12 @@ body {
 	&.dark {
 		color: white;
 		background: $dark-bg;
+	}
+
+	.app-container {
+		min-width: 320px;
+		max-width: 500px;
+		margin: 0 auto;
 	}
 
 }
